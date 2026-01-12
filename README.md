@@ -20,6 +20,8 @@ npx @svelte-add/bulma@latest
 
 # add static adapter
 npm i -D @sveltejs/adapter-static
+
+npm i -D @sveltejs/adapter-vercel
 ```
 
 ## Developing

@@ -1,11 +1,19 @@
 <script>
-    import { goto } from '$app/navigation';
+    import Timer from '$lib/Timer.svelte';
     let customMinutes = '';
+    let showTimer = false;
+    let timerMinutes = 10;
+
+    function startWith(m) {
+        timerMinutes = m;
+        showTimer = true;
+    }
 
     function startCustom() {
         const m = parseInt(customMinutes, 10);
         if (!Number.isNaN(m) && m > 0) {
-            goto(`timer?minutes=${m}`);
+            timerMinutes = m;
+            showTimer = true;
         } else {
             alert('Please enter a positive integer for minutes.');
         }
@@ -18,15 +26,15 @@
             <div class="column is-half is-centered has-text-centered">
                 <h1 class="is-size-1">Start a Timer</h1>
                 <p class="my-6">
-                    <a href="timer?minutes=10" class="button is-rounded is-large is-success">10 Minute Timer</a>
+                    <button class="button is-rounded is-large is-success" on:click={() => startWith(10)}>10 Minute Timer</button>
                 </p>
                 <p class="my-6">
-                    <a href="timer?minutes=15" class="button is-rounded is-medium is-success">15 Minute Timer</a>
+                    <button class="button is-rounded is-medium is-success" on:click={() => startWith(15)}>15 Minute Timer</button>
                 </p>
                 <p class="my-6">
-                    <a href="timer?minutes=20" class="button is-rounded is-medium is-success">20 Minute Timer</a>
+                    <button class="button is-rounded is-medium is-success" on:click={() => startWith(20)}>20 Minute Timer</button>
                 </p>
-                <form on:submit|preventDefault={startCustom} class="controls" style="display:flex; gap:0.5rem;">
+                <form on:submit|preventDefault={startCustom} class="controls" style="display:flex; gap:0.5rem; justify-content:center;">
                     <div class="control">
                         <input class="input is-large" type="number" min="1" bind:value={customMinutes} placeholder="Enter Minutes" aria-label="Minutes">
                     </div>
@@ -38,3 +46,7 @@
         </div>
     </div>
 </div>
+
+{#if showTimer}
+    <Timer minutes={timerMinutes} on:close={() => showTimer = false} />
+{/if}

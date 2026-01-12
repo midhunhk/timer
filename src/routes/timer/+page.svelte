@@ -2,6 +2,7 @@
     import { onMount, onDestroy } from 'svelte';
     import { page } from '$app/stores';
     import { browser } from '$app/environment';
+      import { base } from '$app/paths';
 
     let minutes = 10;
     let total = minutes * 60;
@@ -50,24 +51,11 @@
     });
 </script>
 
-<style>
-    .center {
-        min-width: 220px;
-        text-align: center;
-    }
-    .full {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
-
 <div class="hero is-fullheight is-flex is-justify-content-center is-align-items-center">
     <div class="box has-text-centered p-6 has-background-success" style="min-width: 300px;">
         <h1 class="title is-size-1">{formatTime(remaining)}</h1>
         <p class="mt-6">
-            <a href="/" class="button is-light is-outlined">Back</a>
+            <a href="{base}/" class="button is-light is-outlined">Back</a>
         </p>
     </div>
 </div>
